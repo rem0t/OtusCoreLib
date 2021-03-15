@@ -6,14 +6,14 @@
 //
 
 import Foundation
-import OtusNetwork
+import Networking
 
-public protocol IRecipeApiService {
+public protocol RecipeApiServiceProtocol {
     
-    func getRecipe(type: RecipesSearchType, p: Int?, completion: @escaping ((_ data: RecipeList?,_ error: Error?) -> Void))
+    func getRecipe(i: String, p: Int?, completion: @escaping ((_ data: RecipeList?,_ error: Error?) -> Void))
 }
 
-open class RecipeApiService: IRecipeApiService {
+open class RecipeApiService: RecipeApiServiceProtocol {
     
     /**
      Get Recipe
@@ -24,8 +24,8 @@ open class RecipeApiService: IRecipeApiService {
      - parameter apiResponseQueue: The queue on which api response is dispatched.
      - parameter completion: completion handler to receive the data and the error objects
      */
-    public func getRecipe(type: RecipesSearchType, p: Int?, completion: @escaping ((_ data: RecipeList?,_ error: Error?) -> Void)) {
-        self.getRecipeWithRequestBuilder(i: type.searchText, p: p).execute(OpenAPIClientAPI.apiResponseQueue) { result -> Void in
+    public func getRecipe(i: String, p: Int?, completion: @escaping ((_ data: RecipeList?,_ error: Error?) -> Void)) {
+        self.getRecipeWithRequestBuilder(i: i, p: p).execute(OpenAPIClientAPI.apiResponseQueue) { result -> Void in
             switch result {
             case let .success(response):
                 completion(response.body, nil)
@@ -45,7 +45,7 @@ open class RecipeApiService: IRecipeApiService {
      */
     func getRecipeWithRequestBuilder(i: String, p: Int? = nil) -> RequestBuilder<RecipeList> {
         let path = "/api/"
-        let URLString = OpenAPIClientAPI.recepiesBasePath + path
+        let URLString = OpenAPIClientAPI.basePath + path
         let parameters: [String:Any]? = nil
         
         var url = URLComponents(string: URLString)

@@ -16,7 +16,7 @@ public class Configurator {
     }
     
     private func setup() {
-        ServiceLocator.shared.addService(service: RecipeApiService() as IRecipeApiService)
+        ServiceLocator.shared.addService(service: RecipeApiService() as RecipeApiServiceProtocol)
         // добавять новые сервисы
     }
 }

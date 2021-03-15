@@ -7,14 +7,14 @@
 
 import Foundation
 
-public protocol ServiceLocator {
+public protocol ServiceLocatorProtocol {
     
     func getService<T>(type: T.Type) -> T?
     
     func addService<T>(service: T)
 }
 
-public class ServiceLocator: ServiceLocator {
+public class ServiceLocator: ServiceLocatorProtocol {
     
     public static let shared = ServiceLocator()
     
