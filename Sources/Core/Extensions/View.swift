@@ -10,11 +10,11 @@ import SwiftUI
 public struct LazyView<Content: View>: View {
     public let build: () -> Content
     
-    init(_ build: @autoclosure @escaping () -> Content) {
+    public init(_ build: @autoclosure @escaping () -> Content) {
         self.build = build
     }
 
-    init(_ build: @escaping () -> Content) {
+    public init(_ build: @escaping () -> Content) {
         self.build = build
     }
 
